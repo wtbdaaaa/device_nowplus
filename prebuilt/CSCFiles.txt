@@ -1,0 +1,7 @@
+/system/csc/COA/system/csc/customer.xml
+/system/csc/COA/system/csc/others.xml
+/system/csc/COA/system/csc/sales_code.dat
+/system/csc/COA/system/csc/contents.db
+/system/csc/COA/system/SW_Configuration.xml
+/system/csc/COA/system/CSCVersion.txt
+/system/csc/COA/system/CSCFiles.txt

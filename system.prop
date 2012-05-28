@@ -1,0 +1,73 @@
+#
+# system.prop for generic sdk 
+#
+
+rild.libpath=/system/lib/libh1-ril.so
+#rild.libpath=/system/lib/libsec-ril.so
+#rild.libpath=/system/lib/libreference-ril.so 
+rild.libargs=-d /dev/ttyS0
+
+# Network settings + 3G/EDGE Hacks
+ro.ril.hep=1
+ro.ril.hsxpa=2
+ro.ril.enable.dtm=1
+ro.ril.gprsclass=12
+ro.ril.enable.a52=1
+ro.ril.enable.a53=1
+ro.ril.hsdpa.category=8
+ro.ril.hsupa.category=6
+ro.ril.enable.3g.prefix=1
+ro.ril.oem.nosim.ecclist=911,112,999,000,08,118,120,122,110,119,995,113,115,1530,1522 \
+ro.ril.emc.mode=2
+ro.com.android.dataroaming=false
+
+ro.telephony.call_ring.multiple=false
+ro.telephony.default_network=0
+mobiledata.interfaces=pdp0,wlan0,gprs,ppp0
+
+#enable fixes in libh1-ril
+ro.ril.enable.3gfix=1
+ro.ril.enable.smsfix=1
+
+
+ro.config.sync=yes
+ro.sf.lcd_density=240
+
+#mount also 16GB emmc
+ro.additionalmounts=/mnt/emmc
+
+#com.ti.omap_enhancement=true
+#opencore.asmd=1
+keyguard.no_require_sim=1
+
+dalvik.vm.heapsize=24m
+dalvik.vm.dexopt-flags=m=y
+dalvik.vm.execution-mode=int:jit
+
+android.keylayout.gpio-keys = /system/usr/keylayout/gpio-keys.kl
+android.keychar.gpio-keys = /system/usr/keychars/gpio-keys.kcm
+android.keylayout.TWL4030_Keypad = /system/usr/keylayout/TWL4030_Keypad.kl
+android.keychar.TWL4030_Keypad = /system/usr/keychars/TWL4030_Keypad.kcm
+
+wifi.interface=tiwlan0
+wifi.supplicant_scan_interval=180
+
+alsa.mixer.playback.master=DAC2 Analog
+alsa.mixer.capture.master=Analog
+
+#ro.media.dec.aud.wma.enabled=1
+#ro.media.dec.vid.wmv.enabled=1
+
+#define OpenGL ES 2.0
+ro.opengles.version=131072
+
+# Define JPEG codec to load. (Set to 1 for libskiahw or set to 0 for ARM)
+#jpeg.libskiahw.decoder.enable=0
+# Define JPEG Threashold for Image size (bytes)
+#jpeg.libskiahw.decoder.thresh=100000
+
+#show battery charging on bottom LED
+light.battery.show=0
+
+#enable overlay transparency hack, disable it if there are video playback problems
+overlay.transparency.enable=1
