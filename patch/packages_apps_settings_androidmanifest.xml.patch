@@ -1,0 +1,10 @@
+--- /media/aigo/AndroidManifest.xml	2011-12-24 14:48:44.000000000 +0800
++++ AndroidManifest.xml	2012-04-17 10:22:54.194765235 +0800
+@@ -4,6 +4,7 @@
+ 
+     <original-package android:name="com.android.settings" />
+ 
++    <uses-permission android:name="android.permission.FACTORY_TEST" />
+     <uses-permission android:name="com.google.android.gm.permission.WRITE_GMAIL" />
+     <uses-permission android:name="com.google.android.gm.permission.READ_GMAIL" />
+     <uses-permission android:name="android.permission.WRITE_SETTINGS" />

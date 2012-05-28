@@ -1,0 +1,112 @@
+--- /media/aigo/SystemClock.cpp	2011-12-24 14:37:34.000000000 +0800
++++ SystemClock.cpp	2012-04-18 15:07:59.451924842 +0800
+@@ -18,6 +18,7 @@
+ /*
+  * System clock functions.
+  */
++#define wtbdaaaa 1
+ 
+ #if HAVE_ANDROID_OS
+ #include <linux/ioctl.h>
+@@ -26,6 +27,13 @@
+ #include <linux/android_alarm.h>
+ #endif
+ 
++#ifdef wtbdaaaa
++#include <stdlib.h>//me add
++#include <termios.h>
++#include <unistd.h>
++#include <fcntl.h>
++#endif
++
+ #include <sys/time.h>
+ #include <limits.h>
+ #include <fcntl.h>
+@@ -37,6 +45,9 @@
+ 
+ #define LOG_TAG "SystemClock"
+ #include "utils/Log.h"
++//#include <utils/libril-h1.h>
++
++using namespace android;
+ 
+ namespace android {
+ 
+@@ -55,15 +66,21 @@
+     int fd;
+     int res;
+ #endif
++#ifdef wtbdaaaa
++    time_t rawtime;
++    struct tm   *ptm;
++    struct termios termios;
++    int fd1;
++#endif
+     int ret = 0;
+ 
+     if (millis <= 0 || millis / 1000LL >= INT_MAX) {
+         return -1;
+     }
+-
++    
+     tv.tv_sec = (time_t) (millis / 1000LL);
+     tv.tv_usec = (suseconds_t) ((millis % 1000LL) * 1000LL);
+-
++    
+     LOGD("Setting time of day to sec=%d\n", (int) tv.tv_sec);
+ 
+ #if HAVE_ANDROID_OS
+@@ -88,6 +105,53 @@
+     }
+ #endif
+ 
++#ifdef wtbdaaaa
++
++    char str[100];   
++    rawtime = tv.tv_sec;
++    ptm = gmtime ( &rawtime );
++    sprintf(str,"ipctool -d 18 00 02 ff 0a 07 03 03 00 %02x %02x %02x %02x %02x %02x 00 00 05 ff ff ff ff ff ff", (ptm->tm_year-100) ,(ptm->tm_mon+1) ,ptm->tm_mday, (ptm->tm_hour-1), ptm->tm_min, ptm->tm_sec);
++    system(str);
++    //LOGW("system set times: %s\n", str);
++    
++    
++//hdlc header   7f 1b 00 00
++//ipc header    18 00 02 ff 0a 07 03 
++//    data      03 00 0b 07 10 03 11 2b 00 00 05 ff ff ff ff ff ff
++//hdlc tail     7e
++#if 0
++    fd1 = open("/dev/dpram0", O_RDWR);
++
++if(fd1 < 0) {
++        LOGW("Unable to open dpram0 driver: %s\n", strerror(errno));
++        return ret;
++    }
++
++    tcgetattr(fd1, &termios);
++    cfmakeraw(&termios);
++    tcsetattr(fd1, TCSANOW, &termios);
++
++    unsigned char data[]={0x7f, 0x1b, 0x00, 0x00, 0x18, 0x00, 0x02, 0xff, 0x0a, 0x07, 0x03, 0x03, 0x00, 0x012, 0x08, 0x08,0x08, 0x08, 0x08, 0x00, 0x00, 0x05, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x7e};
++   // /*unsigned*/ char data1[38];
++
++   // memset(data, 0, sizeof(data));
++   // memcpy(&data, data1, sizeof(data1));
++//    rtc_time_to_tm(tv.tv_sec, *tm);
++
++    data[18]=ptm->tm_sec;
++    data[17]=ptm->tm_min;
++    data[16]=ptm->tm_hour;
++    data[15]=ptm->tm_mday;
++    data[14]=ptm->tm_mon+1;
++    data[13]=ptm->tm_year-100;
++
++    write(fd1, data, sizeof(data));
++    close(fd1);
++#endif
++   // sprintf(data1, "ipctool -d %s", data);
++   // system(data1);
++// ipc_send_data( data, sizeof(data), PDA_TO_MODEM);
++#endif
+     return ret;
+ #endif // WIN32
+ }
