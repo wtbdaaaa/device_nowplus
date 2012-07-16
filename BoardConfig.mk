@@ -27,9 +27,10 @@
 
 # The generic product target doesn't have any hardware-specific pieces.
 
+
 TARGET_NO_BOOTLOADER := true
-TARGET_NO_KERNEL := true
-TARGET_NO_RECOVERY      := true
+TARGET_NO_KERNEL     := false
+TARGET_NO_RECOVERY   := false
 TARGET_NO_RADIOIMAGE := true
 
 TARGET_BOARD := GT-I8320
@@ -39,6 +40,11 @@ TARGET_USES_OLD_LIBSENSORS_HAL := false
 TARGET_SENSORS_NO_OPEN_CHECK := true
 #TARGET_SENSORS_NO_OPEN_CHECK := false
 TARGET_PROVIDES_INIT_RC := true
+
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 171966464
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 314572800
+BOARD_BOOTIMAGE_PARTITION_SIZE := 5242880
+BOARD_FLASH_BLOCK_SIZE := 131072
 
 #cpu
 TARGET_BOARD_PLATFORM := omap3
@@ -51,8 +57,16 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_OMAP3 := true
 COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP3 -DOMAP_COMPAT
 
+TARGET_PREBUILT_KERNEL := device/samsung/nowplus/kernel
+
+# Recovery
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/nowplus/recovery_ui.c
+BOARD_HAS_SMALL_RECOVERY := false
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_HAS_NO_SELECT_BUTTON := false
+RECOVERY_USE_CHINESE_FONT := true
+
 #sound
-BOARD_USES_GENERIC_AUDIO := false
 #BOARD_USES_ALSA_AUDIO := true
 BUILD_WITH_ALSA_UTILS := true
 #ALSA_DEFAULT_SAMPLE_RATE := 44100
@@ -70,20 +84,23 @@ BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
 BOARD_WLAN_DEVICE           := wl1271
 BOARD_SOFTAP_DEVICE 		:= wl1271
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
+#WPA_SUPPL_APPROX_USE_RSSI  := true
 WIFI_DRIVER_MODULE_PATH     := "/system/etc/wifi/tiwlan_drv.ko"
+WIFI_AP_DRIVER_MODULE_PATH  := "/system/etc/wifi/softap/tiap_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
-#WIFI_DRIVER_FW_STA_PATH     := "/system/etc/wifi/fw_wlan1271.bin"
+#WIFI_DRIVER_FW_STA_PATH    := "/system/etc/wifi/fw_wlan1271.bin"
 WIFI_FIRMWARE_LOADER        := "wlan_loader"
+WIFI_AP_FIRMWARE_LOADER     := "wlan_ap_loader"
 AP_CONFIG_DRIVER_WILINK     := true
 #PRODUCT_WIRELESS_TOOLS      := true
 
-#AP_CONFIG_DRIVER_WILINK := true
+
 #WIFI_DRIVER_FW_AP_PATH := "/system/etc/wifi/fw_tiwlan_ap.bin"
 
 #egl
 BOARD_USE_YUV422I_DEFAULT_COLORFORMAT := true
 BOARD_USE_UYVY_CAPTURE_COLORFORMAT := true
-
+#BOARD_EGL_CFG := device/samsung/nowplus/egl.cfg
 # Workaround for eglconfig error
 BOARD_NO_RGBX_8888 := true
 #TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
@@ -97,7 +114,6 @@ BOARD_HAVE_FAKE_GPS := true
 
 # FM
 #!!! atm breaks 'OMAP_ENHANCEMENT := true'
-OMAP_COMPAT := true
 BOARD_HAVE_FM_RADIO := true
 BOARD_FM_DEVICE := si4709
 BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
@@ -111,8 +127,6 @@ BOARD_CAMERA_LIBRARIES := libcamera
 
 #dsp
 HARDWARE_OMX := true
-BUILD_VPP := 1
-BUILD_VPP_TEST := 1
 #BUILD_WITHOUT_PV := false
 #use hw ti omx audio codecs
 BUILD_WITH_TI_AUDIO := 1
@@ -136,8 +150,7 @@ ENABLE_JSC_JIT := true
 
 #vold
 # use pre-kernel.35 vold usb mounting
-#BOARD_USE_USB_MASS_STORAGE_SWITCH := true
-#BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
+BOARD_USE_USB_MASS_STORAGE_SWITCH := false
+BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
 #WITH_DEXPREOPT := true
-WITH_DEXPREOPT := false

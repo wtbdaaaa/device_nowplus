@@ -14,5 +14,4 @@
 
 
 # externel sdcard, boot medium
-#dev_mount sdcard /mnt/sdcard 1 /devices/platform/mmci-omap-hs.1/mmc_host/mmc1
-dev_mount sdcard /mnt/sdcard 1 /devices/platform/mmci-omap-hs.0/mmc_host/mmc0
+dev_mount sdcard /mnt/sdcard 1 /devices/platform/mmci-omap-hs.1/mmc_host/mmc1

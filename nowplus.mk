@@ -31,13 +31,14 @@ PRODUCT_PACKAGES += \
     AndroidTerm \
     FileManager \
     CMParts \
+    DSPManager \
     libcyanogen-dsp \
+    acoustics.default \
     libtiOsLib \
     radiooptions \
     hostap \
     gps.nowplus \
     libh1-ril
-
 
 
 #add external packages
@@ -63,8 +64,8 @@ PRODUCT_PACKAGES += \
 	libOMX.TI.JPEG.decoder \
 	libOMX.TI.AMR.encode \
 	libOMX.TI.AMR.decode \
-        libomap_mm_library_jni \
-        tiomxplayer     
+    libomap_mm_library_jni \
+    tiomxplayer     
 
 FRAMEWORKS_BASE_SUBDIRS += omapmmlib
 
@@ -89,26 +90,29 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1
 
-# system csc version
-#PRODUCT_COPY_FILES += \
-#    device/samsung/nowplus/prebuild/CSCVersion.txt:system/CSCVersion.txt \
-#    device/samsung/nowplus/prebuild/SW_Configuration.xml:system/SW_Configuration.xml \
-#    device/samsung/nowplus/prebuild/CSCFiles.txt:system/CSCFiles.txt
+# T-Mobile theme engine
+include vendor/cyanogen/products/themes_common.mk
 
+PRODUCT_COPY_FILES += \
+    device/samsung/nowplus/kernel:kernel
 
+PRODUCT_COPY_FILES +=  \
+    vendor/cyanogen/prebuilt/hdpi/media/bootanimation.zip:system/media/bootanimation.zip
+   
 # root/
 PRODUCT_COPY_FILES += \
-    device/samsung/nowplus/init.rc:root/init.rc \
     device/samsung/nowplus/init.nowplus.rc:root/init.nowplus.rc \
     device/samsung/nowplus/ueventd.nowplus.rc:root/ueventd.nowplus.rc \
-    device/samsung/nowplus/initlogo.rle.bak:root/initlogo.rle.bak \
+    device/samsung/nowplus/initlogo.rle.bak:root/initlogo.rle.bak
 
 # system/bin
 PRODUCT_COPY_FILES += \
     device/samsung/nowplus/prebuilt/bin/sysinit:system/bin/sysinit \
     device/samsung/nowplus/prebuilt/bin/enable_emmc:system/bin/enable_emmc \
+    device/samsung/nowplus/prebuilt/bin/enable_sd:system/bin/enable_sd \
     device/samsung/nowplus/prebuilt/bin/enable_overclock:system/bin/enable_overclock \
-    device/samsung/nowplus/prebuilt/bin/ipctool:system/xbin/ipctool
+    device/samsung/nowplus/prebuilt/bin/ipctool:system/xbin/ipctool \
+    device/samsung/nowplus/prebuilt/bin/flash_eraseall:system/xbin/flash_eraseall
 
 # system/etc/init.d
 PRODUCT_COPY_FILES += \
@@ -119,7 +123,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/nowplus/prebuilt/etc/init.d/20userinit:system/etc/init.d/20userinit \
     device/samsung/nowplus/prebuilt/etc/init.d/10overclock:system/etc/tools/10overclock
 
-
 # sysctl config
 PRODUCT_COPY_FILES += \
     device/samsung/nowplus/prebuilt/etc/sysctl.conf:system/etc/sysctl.conf
@@ -129,6 +132,7 @@ PRODUCT_COPY_FILES += \
     device/samsung/nowplus/prebuilt/etc/asound.conf:system/etc/asound.conf \
     device/samsung/nowplus/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
     device/samsung/nowplus/prebuilt/etc/vold.fstab.emmc:system/etc/tools/vold.fstab.emmc \
+    device/samsung/nowplus/prebuilt/etc/vold.fstab.sd:system/etc/tools/vold.fstab.sd \
     device/samsung/nowplus/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
     device/samsung/nowplus/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml \
     device/samsung/nowplus/prebuilt/etc/gps.conf:system/etc/gps.conf \
@@ -140,12 +144,13 @@ PRODUCT_COPY_FILES += \
     device/samsung/nowplus/prebuilt/etc/wifi/nvs_map.bin:system/etc/wifi/nvs_map.bin \
     device/samsung/nowplus/prebuilt/etc/wifi/tiwlan_drv.ko:system/etc/wifi/tiwlan_drv.ko \
     device/samsung/nowplus/prebuilt/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    device/samsung/nowplus/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini
-
+    device/samsung/nowplus/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
+    device/samsung/nowplus/prebuilt/etc/wifi/softap/tiap_drv.ko:system/etc/wifi/softap/tiap_drv.ko \
+    device/samsung/nowplus/prebuilt/etc/wifi/softap/firmware_ap.bin:system/etc/wifi/softap/firmware_ap.bin
 
 # system/media/
-PRODUCT_COPY_FILES += \
-    device/samsung/nowplus/prebuilt/bootanimation.zip:system/media/bootanimation.zip
+#PRODUCT_COPY_FILES += \
+#    device/samsung/nowplus/prebuilt/media/bootanimation.zip:system/media/bootanimation.zip
 
 
 # permissions/ Install the features available on this device.
@@ -169,24 +174,23 @@ PRODUCT_COPY_FILES += \
     device/samsung/nowplus/TWL4030_Keypad.kl:system/usr/keylayout/TWL4030_Keypad.kl \
     device/samsung/nowplus/power_key_driver.kl:system/usr/keylayout/power_key_driver.kl \
     device/samsung/nowplus/ear_key_driver.kl:system/usr/keylayout/ear_key_driver.kl
-
+   
 # 3G
 PRODUCT_COPY_FILES += \
+    device/samsung/nowplus/prebuilt/efs/param.bin:efs/param.bin \
     device/samsung/nowplus/prebuilt/csc/contents.db:system/csc/contents.db \
     device/samsung/nowplus/prebuilt/csc/customer.xml:system/csc/customer.xml \
     device/samsung/nowplus/prebuilt/csc/isnew_csc.txt:system/csc/isnew_csc.txt \
     device/samsung/nowplus/prebuilt/csc/others.xml:system/csc/others.xml
     
-# kernel modules
+# kernel modules for ramdisk
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,device/samsung/nowplus/prebuilt/modules,system/lib/modules)
+    $(call find-copy-subdir-files,*,device/samsung/nowplus/prebuilt/modules/ramdisk,root/lib/modules)
 
 # Generated kcm keymaps
 PRODUCT_PACKAGES += \
         TWL4030_Keypad.kcm\
         power_key_driver.kcm
-
-#        gpio-keys.kcm
 # Pick up audio package
 #include frameworks/base/data/sounds/AudioPackage2.mk
 

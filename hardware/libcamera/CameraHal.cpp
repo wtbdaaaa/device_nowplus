@@ -87,13 +87,13 @@ namespace android {
 
 	// //CAM_MEM
 	// /* Defined in liboverlay */
-	 typedef struct {
-		 int fd;
-		 size_t length;
-		 uint32_t offset;
-		 void *ptr;
-		int nQueueToOverlay;   //OVL_PATCH //VIK_DBG  0 Not Q to Ovl, 1 Q to Ovl, -1 Query returned Error.
-	 } mapping_data_t;
+	// typedef struct {
+		// int fd;
+		// size_t length;
+		// uint32_t offset;
+		// void *ptr;
+		// int nQueueToOverlay;   //OVL_PATCH //VIK_DBG  0 Not Q to Ovl, 1 Q to Ovl, -1 Query returned Error.
+	// } mapping_data_t;
 
 	static const char* wb_value[] = {
 		"minus1",           

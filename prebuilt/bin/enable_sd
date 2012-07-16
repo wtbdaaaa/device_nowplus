@@ -1,0 +1,5 @@
+#!/system/bin/sh
+
+cp /system/etc/tools/vold.fstab.sd /system/etc/vold.fstab
+sync
+echo "sd enabled, please reboot system"

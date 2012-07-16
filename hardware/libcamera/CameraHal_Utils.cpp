@@ -376,8 +376,7 @@ s_fmt_fail:
 
 		ssize_t newoffset;
 		size_t newsize;
-                unsigned long long start = systemTime();//me add
-                 LOGD("camera returns processed jpeg image start times= %llu\n", start);//me add       
+
 		mCaptureFlag = true;
 		int jpegSize;
 		void* outBuffer;
@@ -528,8 +527,6 @@ s_fmt_fail:
 			// int thumbNailOffset = GetThumbNailOffset();
 			// int yuvOffset = GetYUVOffset();
 			thumbnaiDataSize = GetThumbNailDataSize();
-                         LOGD("camera returns processed jpeg image = %d\n", JPEG_Image_Size);
-                         LOGD("camera returns processed jpeg image = %d\n", thumbnaiDataSize);
 			sp<IMemoryHeap> heap = mPictureBuffer->getMemory(&newoffset, &newsize);
 			uint8_t* pInJPEGDataBUuf = (uint8_t *)heap->base() + newoffset ;			//ptr to jpeg data
 			uint8_t* pInThumbNailDataBuf = (uint8_t *)heap->base() + thumbNailOffset;	//ptr to thmubnail
@@ -587,10 +584,6 @@ s_fmt_fail:
             if (mMsgEnabled & CAMERA_MSG_COMPRESSED_IMAGE)
             {
                 mDataCb(CAMERA_MSG_COMPRESSED_IMAGE, mFinalPictureBuffer, mCallbackCookie);
-                unsigned long long now = systemTime();
-                unsigned long long diff = now - start;
-             LOGD("camera returns processed jpeg image end times = %llu\n", diff);//me add
-             
              }
 
 		}   //CAMERA_MODE_JPEG

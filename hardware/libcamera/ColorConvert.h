@@ -24,11 +24,11 @@
 #include <stdint.h>
 #include <utils/Log.h>
 
-#define LOGV printf
-#define LOGE printf
+//#define LOGV printf
+//#define LOGE printf
 
 #define DBG printf("%s: line %d\n", __func__, __LINE__);
-#define DBG
+//#define DBG
 
 
 

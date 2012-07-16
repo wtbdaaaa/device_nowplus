@@ -1,7 +1,6 @@
 #
 # system.prop for generic sdk 
 #
-
 rild.libpath=/system/lib/libh1-ril.so
 #rild.libpath=/system/lib/libsec-ril.so
 #rild.libpath=/system/lib/libreference-ril.so 
@@ -29,7 +28,6 @@ mobiledata.interfaces=pdp0,wlan0,gprs,ppp0
 ro.ril.enable.3gfix=1
 ro.ril.enable.smsfix=1
 
-
 ro.config.sync=yes
 ro.sf.lcd_density=240
 
@@ -43,14 +41,19 @@ keyguard.no_require_sim=1
 dalvik.vm.heapsize=24m
 dalvik.vm.dexopt-flags=m=y
 dalvik.vm.execution-mode=int:jit
+dalvik.vm.dexopt-data-only=1
 
-android.keylayout.gpio-keys = /system/usr/keylayout/gpio-keys.kl
-android.keychar.gpio-keys = /system/usr/keychars/gpio-keys.kcm
-android.keylayout.TWL4030_Keypad = /system/usr/keylayout/TWL4030_Keypad.kl
-android.keychar.TWL4030_Keypad = /system/usr/keychars/TWL4030_Keypad.kcm
+#android.keylayout.gpio-keys = /system/usr/keylayout/gpio-keys.kl
+#android.keychar.gpio-keys = /system/usr/keychars/gpio-keys.kcm
+#android.keylayout.TWL4030_Keypad = /system/usr/keylayout/TWL4030_Keypad.kl
+#android.keychar.TWL4030_Keypad = /system/usr/keychars/TWL4030_Keypad.kcm
 
 wifi.interface=tiwlan0
 wifi.supplicant_scan_interval=180
+
+wifi.hotspot.ti = 1
+wifi.ap.interface = tiap0
+softap.interface = tiap0
 
 alsa.mixer.playback.master=DAC2 Analog
 alsa.mixer.capture.master=Analog
@@ -70,4 +73,4 @@ ro.opengles.version=131072
 light.battery.show=0
 
 #enable overlay transparency hack, disable it if there are video playback problems
-overlay.transparency.enable=1
+overlay.transparency.enable=0
